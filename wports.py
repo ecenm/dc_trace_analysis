@@ -109,10 +109,18 @@ def main(argv):
    cum_dist = numpy.linspace(0.,1.,len(length))
    length_cdf = pd.Series(cum_dist, index=length)
    
+ 
    ax =length_cdf.plot(drawstyle='steps', title = "CDF of packet size for "+ base, grid=True)
    ax.set_xlim(right=1600)
+
+   # setting xticks limits 
+   #http://stackoverflow.com/questions/24943991/matplotlib-change-grid-interval-and-specify-tick-labels
+   minor_ticks = numpy.arange(0, 1600, 20) 
+   ax.set_xticks(minor_ticks, minor=True)
+   
    ax.set_xlabel("Packet size (in bytes)")
    ax.set_ylabel("CDF")
+
    #plt.show()
    fig = ax.get_figure()
    fig.savefig(base+'_packet_size.jpg')
@@ -205,7 +213,7 @@ def main(argv):
    plt.yscale('log')
    #plt.xscale('log')
    plt.title(' Size Vs Duration (at IP level) for '+base)
-
+   plt.xticks(numpy.arange(min(iplevel['Time']), max(iplevel['Time'])+1, 20))
    plt.xlabel('Duration (in seconds)')
    plt.ylabel('Size (in bytes)')
    plt.scatter(iplevel['Time'], iplevel['Length'])
@@ -216,25 +224,25 @@ def main(argv):
    #---------------------------------------------------------------------
    # Used for computing the flow size Vs Duration for 5 tuple
 
-   resultef = df.groupby('src_dst_pair').apply(extract_flows)
-   #resultef.to_csv('output.csv', columns = ['src_dst_pair','Time','Length'])
-   resultef.sort_values(by=['Time'], ascending=[True], inplace=True)	
-   resultef.to_csv(base+'_output.csv')
+   #resultef = df.groupby('src_dst_pair').apply(extract_flows)
+   ##resultef.to_csv('output.csv', columns = ['src_dst_pair','Time','Length'])
+   #resultef.sort_values(by=['Time'], ascending=[True], inplace=True)	
+   #resultef.to_csv(base+'_output.csv')
 
-   #resultef.plot(x='Length', y='Time', style='o')
-   fig = plt.figure()
-   plt.yscale('log')
-   plt.xscale('log')
-   plt.title('Flow size Vs Flow Duration for '+base)
-   #http://stackoverflow.com/questions/12608788/changing-the-tick-frequency-on-x-or-y-axis-in-matplotlib
-   #plt.xticks(numpy.arange(min(resultef['Time']), max(resultef['Time'])+1, 10)) 
-   plt.xlabel('flow duration (in seconds)')
-   plt.ylabel('flow size (in bytes)')
-   plt.scatter(resultef['Time'], resultef['Length'])
-   fig.tight_layout()
-   fig.savefig(base+'_timevdur.png', dpi=fig.dpi)
-   #plt.show() # Depending on whether you use IPython or interactive mode, etc.
-   #print(resultef)
+   ##resultef.plot(x='Length', y='Time', style='o')
+   #fig = plt.figure()
+   #plt.yscale('log')
+   #plt.xscale('log')
+   #plt.title('Flow size Vs Flow Duration for '+base)
+   ##http://stackoverflow.com/questions/12608788/changing-the-tick-frequency-on-x-or-y-axis-in-matplotlib
+   ##plt.xticks(numpy.arange(min(resultef['Time']), max(resultef['Time'])+1, 10)) 
+   #plt.xlabel('flow duration (in seconds)')
+   #plt.ylabel('flow size (in bytes)')
+   #plt.scatter(resultef['Time'], resultef['Length'])
+   #fig.tight_layout()
+   #fig.savefig(base+'_timevdur.png', dpi=fig.dpi)
+   ##plt.show() # Depending on whether you use IPython or interactive mode, etc.
+   ##print(resultef)
 
 	
 if __name__ == "__main__":

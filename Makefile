@@ -11,9 +11,13 @@ tcp:
 udp:
 	make clean
 	python wports.py -i univ1_pt1_udp_traffic.csv
+others:
+	make clean
+	python wports.py -i univ1_pt1_other_traffic.csv
 
 clean:
 	rm -f first_*.*
 	rm -f univ1_pt1_all_traffic_*.*
 	rm -f univ1_pt1_tcp_traffic_*.*
 	rm -f univ1_pt1_udp_traffic_*.*
+	rm -f univ1_pt1_other_traffic_*.*

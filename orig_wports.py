@@ -209,28 +209,16 @@ def main(argv):
    ip_level.to_csv(base+'_ip_level.csv',index = False)
 
    iplevel = pd.read_csv(base+'_ip_level.csv')
-
-   ax = iplevel.plot(kind='scatter', x='Time', y='Length', title ="Size Vs Duration (at IP level, 0 -1s) for "+base, grid=True,logy=True)
-   #ax.set_xlim(right=10)
-   ax.set_xlim(0,1)
-   ax.set_xlabel("Duration (in seconds)")
-   ax.set_ylabel("Size (in bytes)")
-   #plt.show()
-   fig = ax.get_figure()
+   fig = plt.figure()
+   plt.yscale('log')
+   #plt.xscale('log')
+   plt.title(' Size Vs Duration (at IP level) for '+base)
+   plt.xticks(numpy.arange(min(iplevel['Time']), max(iplevel['Time'])+1, 20))
+   plt.xlabel('Duration (in seconds)')
+   plt.ylabel('Size (in bytes)')
+   plt.scatter(iplevel['Time'], iplevel['Length'])
    fig.tight_layout()
-   fig.savefig(base+'_iplevel_timevdur.jpg')
-
-   #fig = plt.figure()
-   #plt.yscale('log')
-   ##plt.xscale('log')
-   #plt.title(' Size Vs Duration (at IP level) for '+base)
-   ##plt.xticks(numpy.arange(min(iplevel['Time']), max(iplevel['Time'])+1, 20))
-   #plt.xticks(numpy.arange(min(iplevel['Time']), 10, 1))
-   #plt.xlabel('Duration (in seconds)')
-   #plt.ylabel('Size (in bytes)')
-   #plt.scatter(iplevel['Time'], iplevel['Length'])
-   #fig.tight_layout()
-   #fig.savefig(base+'_iplevel_timevdur.png', dpi=fig.dpi)
+   fig.savefig(base+'_iplevel_timevdur.png', dpi=fig.dpi)
 
 
    #---------------------------------------------------------------------
@@ -248,7 +236,6 @@ def main(argv):
    #plt.title('Flow size Vs Flow Duration for '+base)
    ##http://stackoverflow.com/questions/12608788/changing-the-tick-frequency-on-x-or-y-axis-in-matplotlib
    ##plt.xticks(numpy.arange(min(resultef['Time']), max(resultef['Time'])+1, 10)) 
-   #plt.xticks(numpy.arange(min(resultef['Time']), 10, 1)) 
    #plt.xlabel('flow duration (in seconds)')
    #plt.ylabel('flow size (in bytes)')
    #plt.scatter(resultef['Time'], resultef['Length'])

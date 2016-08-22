@@ -236,24 +236,10 @@ def main(argv):
    #---------------------------------------------------------------------
    # Used for computing the flow size Vs Duration for 5 tuple
 
-   resultef = df.groupby('src_dst_pair').apply(extract_flows)
-   #resultef.to_csv('output.csv', columns = ['src_dst_pair','Time','Length'])
-   resultef.sort_values(by=['Time'], ascending=[True], inplace=True)	
-   resultef.to_csv(base+'_output.csv')
-   resultef = pd.read_csv(base+'_output.csv')
-
-   ax = resultef.plot(kind='scatter', x='Time', y='Length', title ="Flow Size Vs Flow Duration for "+base, grid=True,logy=True,logx=True)
-   #ax.set_xlim(right=10)
-   #ax.set_xlim(0,1)
-   ax.set_xlabel("Flow Duration (in seconds)")
-   ax.set_ylabel("Flow Size (in bytes)")
-   #plt.show()
-   fig = ax.get_figure()
-   fig.tight_layout()
-   fig.savefig(base+'_timevdur.jpg')
-
-
-
+   #resultef = df.groupby('src_dst_pair').apply(extract_flows)
+   ##resultef.to_csv('output.csv', columns = ['src_dst_pair','Time','Length'])
+   #resultef.sort_values(by=['Time'], ascending=[True], inplace=True)	
+   #resultef.to_csv(base+'_output.csv')
 
    ##resultef.plot(x='Length', y='Time', style='o')
    #fig = plt.figure()
